@@ -8,7 +8,7 @@ var app = {
     setTimeout(function () {
       app.ufo.loadGlyphData("a");
     }, 250);
-    
+
   }
 };
 
