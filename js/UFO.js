@@ -19,6 +19,7 @@ function UFO () {
 
 UFO.prototype.setSrc = function (url) {
   this.url = url;
+  this.loadFontInfo();
 };
 
 UFO.prototype.loadFontInfo = function () {
