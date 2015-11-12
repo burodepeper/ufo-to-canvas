@@ -50,7 +50,7 @@ UFO.prototype.loadGlyphData = function (name) {
       "crossDomain": true,
       "dataType": "xml",
       success: function (data, status, xhr) {
-        new UFOglif(data, self);
+        self.glyphs[name] = new UFOglif(data, self);
       }
     });
 };
