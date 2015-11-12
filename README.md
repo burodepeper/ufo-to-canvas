@@ -8,5 +8,6 @@ Current plan-de-campagne and a small peek into what may come. I have absolutely 
 
 - [x] write a more convenient tool to parse the .glif-xml into a json-object.
 - [x] create a UFOglif object, and pass the glyph-data and a reference to the UFO object as parameters
-- [ ] create a canvas and draw the contours of the glyph
+- [x] create a canvas and draw the contours of the glyph
+- [ ] convert into a package sort of thing.
 - [ ] create some sort of user-interface

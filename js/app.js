@@ -7,6 +7,9 @@ var app = {
     // too lazy to create callback ;)
     setTimeout(function () {
       app.ufo.loadGlyphData("a");
+      // app.ufo.loadGlyphData("A_");
+      // app.ufo.loadGlyphData("ampersand");
+      // app.ufo.loadGlyphData("at");
     }, 250);
 
   }
