@@ -2,10 +2,10 @@ function UFOglif (xml, ufo) {
   this.xml = xml;
   this.ufo = ufo;
   this.data = this.parseXML(xml);
-  console.log(this.data);
 }
 
 UFOglif.prototype.parseXML = function (xml) {
+
   var data = {},
       self = this,
       i, j, node, name, attribute;
@@ -51,4 +51,5 @@ UFOglif.prototype.parseXML = function (xml) {
   }
 
   return data;
+  
 };

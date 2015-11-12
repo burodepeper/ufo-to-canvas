@@ -45,12 +45,12 @@ UFO.prototype.getMetrics = function () {
 UFO.prototype.loadGlyphData = function (name) {
   var self = this,
       url = this.url+"/glyphs/"+name+".glif";
-    $.ajax(url, {
-      "cache": false,
-      "crossDomain": true,
-      "dataType": "xml",
-      success: function (data, status, xhr) {
-        self.glyphs[name] = new UFOglif(data, self);
-      }
-    });
+  $.ajax(url, {
+    "cache": false,
+    "crossDomain": true,
+    "dataType": "xml",
+    success: function (data, status, xhr) {
+      self.glyphs[name] = new UFOglif(data, self);
+    }
+  });
 };
