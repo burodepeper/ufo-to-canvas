@@ -28,7 +28,6 @@ UFOglif.prototype.parseXML = function (xml) {
     } else {
       data = false;
     }
-
   }
 
   // parse children
@@ -51,5 +50,5 @@ UFOglif.prototype.parseXML = function (xml) {
   }
 
   return data;
-  
+
 };
