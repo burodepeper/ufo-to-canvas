@@ -9,6 +9,10 @@
 // https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo/fontinfo.plist
 // https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo/glyphs/a.glif
 
+
+// Could be interesting:
+// http://goessner.net/download/prj/jsonxml/
+
 function UFO () {
   this.glyphs = [];
 }
@@ -46,7 +50,7 @@ UFO.prototype.loadGlyphData = function (name) {
       "crossDomain": true,
       "dataType": "xml",
       success: function (data, status, xhr) {
-        console.log(xmlToJson(data));
+        new UFOglif(data, self);
       }
     });
 };
