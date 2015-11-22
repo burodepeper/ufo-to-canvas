@@ -14,6 +14,8 @@ Current plan-de-campagne and a small peek into what may come. I have absolutely 
 - [ ] describe a possible API
 - [ ] convert into a package sort of thing.
 - [ ] create some sort of user-interface as a demo
+- [ ] https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
+- [ ] https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
 
 ## Usage (planned)
 
