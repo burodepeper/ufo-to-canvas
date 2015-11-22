@@ -1,4 +1,4 @@
-function UFOglif (xml, ufo) {
+function UFOglif (xml, ufo, container) {
   this.xml = xml;
   this.ufo = ufo;
   this.data = this.parseXML(xml).glyph;

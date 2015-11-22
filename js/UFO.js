@@ -1,24 +1,15 @@
 
-// UFO
-//
-// https://github.com/source-foundry/Hack-dev/tree/usability/source/ufo/Hack/Hack-Regular.ufo
-// https://github.com/source-foundry/Hack-dev/blob/usability/source/ufo/Hack/Hack-Regular.ufo/fontinfo.plist
-// https://github.com/source-foundry/Hack-dev/blob/usability/source/ufo/Hack/Hack-Regular.ufo/glyphs/a.glif
-//
 // https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo
 // https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo/fontinfo.plist
 // https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo/glyphs/a.glif
-
-
-// Could be interesting:
-// http://goessner.net/download/prj/jsonxml/
 
 function UFO () {
   this.glyphs = [];
 }
 
-UFO.prototype.setSrc = function (url) {
+UFO.prototype.setSrc = function (url, callback) {
   this.url = url;
+  this._onLoadCallback = callback;
   this.loadFontInfo();
 };
 
@@ -31,6 +22,9 @@ UFO.prototype.loadFontInfo = function () {
     success: function (data, status, xhr) {
       self.fontInfo = PlistParser.parse(data);
       self.getMetrics();
+      if (self._onLoadCallback) {
+        self._onLoadCallback();
+      }
     }
   });
 };
@@ -43,7 +37,7 @@ UFO.prototype.getMetrics = function () {
   this.xHeight = this.fontInfo.xHeight;
 };
 
-UFO.prototype.loadGlyphData = function (name) {
+UFO.prototype.loadGlyphData = function (name, container) {
   var self = this,
       url = this.url+"/glyphs/"+name+".glif";
   $.ajax(url, {
@@ -54,4 +48,12 @@ UFO.prototype.loadGlyphData = function (name) {
       self.glyphs[name] = new UFOglif(data, self);
     }
   });
+};
+
+UFO.prototype.loadGlyphs = function (names) {
+
+};
+
+UFO.prototype.loadGlyph = function (name) {
+
 };
