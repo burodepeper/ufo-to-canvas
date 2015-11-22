@@ -1,18 +1,15 @@
-function UFOglif (xml, ufo, container) {
+function UFOglif (xml, ufo) {
+
   this.xml = xml;
   this.ufo = ufo;
   this.data = this.parseXML(xml).glyph;
   // TODO check if data is valid
-  console.log(this.ufo);
+  // console.log(this.ufo);
 
   // NOTE temporary implementation
   this.data.advance.height = this.ufo.unitsPerEm;
   this.ratio = this.data.advance.width / this.data.advance.height;
-  this.scale = 0.25; // NOTE set manually for now, variable in the future
-  this.width = this.data.advance.width * this.scale;
-  this.height = this.data.advance.height * this.scale;
-  this.yOffset = this.ufo.descender * this.scale;
-  this.draw();
+
 }
 
 UFOglif.prototype.parseXML = function (xml) {
@@ -64,9 +61,21 @@ UFOglif.prototype.parseXML = function (xml) {
 
 };
 
-UFOglif.prototype.draw = function () {
+UFOglif.prototype.setSize = function (size) {
+  this.size = size;
+  this.scale = this.size / this.data.advance.height;
+  this.height = this.size;
+  this.width = this.size * this.ratio;
+  this.yOffset = this.ufo.descender * this.scale;
+};
 
-  var i, j, contour, context, point,
+UFOglif.prototype.getWidth = function () {
+  return this.width;
+};
+
+UFOglif.prototype.draw = function (context, left) {
+
+  var i, j, contour, point,
       x, y, x1, y1, x2, y2,
       controlPoints = [],
       metrics = ["ascender", "capHeight", "xHeight"];
@@ -75,36 +84,44 @@ UFOglif.prototype.draw = function () {
   // attach to body,
   // set dimensions,
   // get context
-  this.canvas = $("<canvas>").appendTo($(document.body));
-  this.canvas.attr("width", this.width);
-  this.canvas.attr("height", this.height);
-  this.canvas.css({
-    "display": "block",
-    "position": "absolute",
-    "top": "50%",
-    "left": "50%",
-    "margin": (this.height / -2)+"px 0 0 "+(this.width / -2)+"px",
-    "box-shadow": "0 0 18px rgba(0, 0, 0, 0.25)"
-  });
-  this.context = this.canvas[0].getContext("2d");
-  context = this.context;
+  // this.canvas = $("<canvas>").appendTo($(document.body));
+  // this.canvas.attr("width", this.width);
+  // this.canvas.attr("height", this.height);
+  // this.canvas.css({
+  //   "display": "block",
+  //   "position": "absolute",
+  //   "top": "50%",
+  //   "left": "50%",
+  //   "margin": (this.height / -2)+"px 0 0 "+(this.width / -2)+"px",
+  //   "box-shadow": "0 0 18px rgba(0, 0, 0, 0.25)"
+  // });
+  // this.context = this.canvas[0].getContext("2d");
+  // context = this.context;
 
   // draw metrics
-  context.strokeStyle = "rgba(255, 0, 0, 0.5)";
+  context.beginPath();
+  context.strokeStyle = "rgba(255, 0, 0, 0.25)";
   y = this.height + this.yOffset;
-  context.moveTo(0, y);
-  context.lineTo(this.width, y);
+  context.moveTo(left, y);
+  context.lineTo(left + this.width, y);
   context.stroke();
 
-  for (i = 0; i < metrics.length; i++) {
-    y = this.height - (this.ufo[metrics[i]] * this.scale) + this.yOffset;
-    context.moveTo(0, y);
-    context.lineTo(this.width, y);
+  if (left !== 0) {
+    context.moveTo(left, 0);
+    context.lineTo(left, this.height);
     context.stroke();
   }
 
+  // for (i = 0; i < metrics.length; i++) {
+  //   y = this.height - (this.ufo[metrics[i]] * this.scale) + this.yOffset;
+  //   context.moveTo(left, y);
+  //   context.lineTo(left + this.width, y);
+  //   context.stroke();
+  // }
+
   // draw shape(s)
-  context.strokeStyle = "#000";
+  context.strokeStyle = 'rgba(0, 0, 0, 1)';
+  context.fillStyle = 'rgba(0, 153, 0, 0.25)';
   for (i = 0; i < this.data.outline.contour.length; i++) {
     contour = this.data.outline.contour[i];
 
@@ -116,8 +133,7 @@ UFOglif.prototype.draw = function () {
     context.beginPath();
     for (j = 0; j < contour.point.length; j++) {
       point = contour.point[j];
-      // console.log(point);
-      x = parseInt(point.x) * this.scale;
+      x = left + (parseInt(point.x) * this.scale);
       y = this.height - (parseInt(point.y) * this.scale) + this.yOffset;
       point._x = x;
       point._y = y;
@@ -142,6 +158,10 @@ UFOglif.prototype.draw = function () {
       }
     }
     context.stroke();
+    context.fill();
   }
+  context.closePath();
+
+  return this.width;
 
 };
