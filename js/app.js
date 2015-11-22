@@ -2,25 +2,41 @@ var app = {
 
   init: function () {
     var self = this;
-    this.ufo = new UFO();
-    this.ufo.setSrc("https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo", function () {
-      self.loadGlyphs();
+    this.ufo = new UFO({
+      url: "https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo",
+      onLoad: function () {
+        self.loadGlyphs();
+      }
     });
   },
 
   loadGlyphs: function () {
-    this.ufo.loadGlyphData("a");
+    var self = this;
+    // this.ufo.loadGlyphs(["a", "A_", "ampersand", "at"], function () {
+    //   self.drawGlyphs();
+    // });
+    this.ufo.loadGlyphs(["a", "A_", "ampersand", "at"]);
+    setTimeout(function () {
+      self.drawGlyphs();
+    }, 1000);
+  },
 
-    var i, glyph, element,
-        body = $("body"),
-        glyphs = ["a", "A_", "ampersand", "at"];
+  drawGlyphs: function () {
 
-    for (i = 0; i < glyphs.length; i++) {
-      glyph = glyphs[i];
-      element = $("<div class='glyph'>");
-      element.appendTo(body);
-      // this.ufo.loadGlyphData(glyph, element);
-    }
+    this.ufo.setCanvas("tiny", 24);
+    this.ufo.drawGlyphs(["a", "A_", "ampersand", "at"]);
+
+    this.ufo.setCanvas("small", 48);
+    this.ufo.drawGlyphs(["a", "A_", "ampersand", "at"]);
+
+    this.ufo.setCanvas("medium", 96);
+    this.ufo.drawGlyphs(["a", "A_", "ampersand", "at"]);
+
+    this.ufo.setCanvas("large", 192);
+    this.ufo.drawGlyphs(["a", "A_", "ampersand", "at"]);
+
+    this.ufo.setCanvas("huge", 384);
+    this.ufo.drawGlyphs(["a", "A_", "ampersand", "at"]);
 
   }
 
