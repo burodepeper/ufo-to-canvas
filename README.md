@@ -16,6 +16,8 @@ Current plan-de-campagne and a small peek into what may come. I have absolutely 
 - [ ] create some sort of user-interface as a demo
 - [ ] https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 - [ ] https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+- [ ] https://drafts.fxtf.org/compositing/#canvascompositingandblending
+- [ ] https://html.spec.whatwg.org/multipage/scripting.html#compositing
 
 ## Usage (planned)
 
