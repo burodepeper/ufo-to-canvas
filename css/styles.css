@@ -1,0 +1,15 @@
+body {
+  padding: 18px;
+  background: #e5e5e5;
+}
+
+.glyph {
+  display: block;
+  margin-bottom: 18px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, .5);
+  background: #fff;
+}
+
+.glyph:last-child {
+  margin-bottom: 0;
+}
